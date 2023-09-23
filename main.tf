@@ -17,7 +17,7 @@ data "aws_ami" "app_ami" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "my-vpc"
+  name = "dev"
   cidr = "10.0.0.0/16"
 
   azs             = ["us-west-1a", "us-west-1b", "us-west-1c"]
@@ -46,7 +46,7 @@ module "blog_sg" {
   version = "5.1.0"
   name ="blog_new"
 
-  vpc_id = module.vpc.public_subnets[0]
+  vpc_id = data.aws_vpc.default.id
 
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
